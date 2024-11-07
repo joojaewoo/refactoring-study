@@ -1,0 +1,20 @@
+name: AI Review on Open PR
+
+on:
+  pull_request:
+    types: [opened] # PR이 열릴 때 실행
+
+jobs:
+  ai-review-on-open-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write # PR에 댓글을 달 수 있는 권한
+      contents: read # 저장소 내용을 읽을 수 있는 권한
+
+    steps:
+      - name: Add comment to PR
+        uses: thollander/actions-comment-pull-request@v3.0.1
+        with:
+          message: "ai-review run" # ai리뷰를 위해 PR에 comment에 'ai-review run' 추가
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub에서 자동으로 제공하는 토큰
